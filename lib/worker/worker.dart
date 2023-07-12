@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
 class worker {
-  String loc = "";
+  String? loc;
   //constructor
-  worker({this.loc = ""}) {
+  worker({this.loc}) {
     loc = this.loc;
   }
 
@@ -13,6 +14,7 @@ class worker {
   String? air_speed;
   String? description;
   String? main;
+  String? icon;
 
   //method
   Future<void> getdata() async {
@@ -24,7 +26,7 @@ class worker {
 
       // temperature,humidity
       Map temp_data = data["main"];
-      String get_temp = temp_data["temp"] - 273.15.toString();
+      String get_temp = (temp_data["temp"] - 273.15).toString();
       String get_humidity = temp_data["humidity"].toString();
 
       //description,main
@@ -32,17 +34,19 @@ class worker {
       Map waether_main_data = weather_data[0];
       String get_description = waether_main_data['description'];
       String get_main = waether_main_data["main"];
+      String icon_get = waether_main_data["icon"];
 
       //speed
       Map speed_data = data["wind"];
-      String get_speed = speed_data["speed"] / 0.27777777777778.toString();
+      double get_speed = speed_data["speed"] / 0.277777777777;
 
       //assigning value
       temp = get_temp; //degree celsius
       humidity = get_humidity; //%
-      air_speed = get_speed; //km/hr
+      air_speed = get_speed.toString(); //km/hr
       description = get_description;
       main = get_main;
+      icon = icon_get.toString();
     } catch (e) {
       //assigning value
       temp = "can't find data";
@@ -50,6 +54,7 @@ class worker {
       air_speed = "can't find data";
       description = "can't find data";
       main = "can't find data";
+      icon = "03n";
     }
   }
 }

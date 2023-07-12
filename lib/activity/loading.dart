@@ -15,16 +15,19 @@ class _loadingState extends State<loading> {
   String? air_speed;
   String? des;
   String? main;
+  String? icon;
+  String loc = "Gwalior";
 
   // String temperature = "loading";
   void startapp() async {
-    worker instance = worker(loc: "mumbai");
+    worker instance = worker(loc: loc);
     await instance.getdata();
     temp = instance.temp;
     hum = instance.humidity;
     air_speed = instance.air_speed;
     des = instance.description;
     main = instance.main;
+    icon = instance.icon;
 
     Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, '/home', arguments: {
@@ -33,13 +36,15 @@ class _loadingState extends State<loading> {
         "air_speed_value": air_speed,
         "des_value": des,
         "main_value": main,
+        "icon_value": icon,
+        "loc_value": loc,
       });
     });
   }
 
   void initState() {
-    startapp();
     super.initState();
+    startapp();
   }
 
   @override
