@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:waether_app/activity/location.dart';
 import 'package:waether_app/worker/worker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class loading extends StatefulWidget {
-  const loading({super.key});
+  String location;
+  loading({super.key, required this.location});
 
   @override
   State<loading> createState() => _loadingState();
@@ -16,11 +18,10 @@ class _loadingState extends State<loading> {
   String? des;
   String? main;
   String? icon;
-  String loc = "Gwalior";
 
   // String temperature = "loading";
   void startapp() async {
-    worker instance = worker(loc: loc);
+    worker instance = worker(loc: widget.location);
     await instance.getdata();
     temp = instance.temp;
     hum = instance.humidity;
@@ -37,14 +38,14 @@ class _loadingState extends State<loading> {
         "des_value": des,
         "main_value": main,
         "icon_value": icon,
-        "loc_value": loc,
+        "loc_value": widget.location,
       });
     });
   }
 
   void initState() {
-    super.initState();
     startapp();
+    super.initState();
   }
 
   @override

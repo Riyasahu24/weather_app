@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:waether_app/activity/loading.dart';
 import 'package:weather_icons/weather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_app_bar/flutter_gradient_app_bar.dart';
@@ -14,6 +15,7 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  TextEditingController searchcontroller = new TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -95,7 +97,15 @@ class _homeState extends State<home> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => loading(
+                                  location: searchcontroller.text,
+                                ),
+                              ));
+                        },
                         child: Container(
                           child: Icon(
                             Icons.search,
@@ -106,6 +116,7 @@ class _homeState extends State<home> {
                       ),
                       Expanded(
                         child: TextField(
+                          controller: searchcontroller,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Search $city",
