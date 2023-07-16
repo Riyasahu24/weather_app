@@ -49,12 +49,12 @@ class worker {
       icon = icon_get.toString();
     } catch (e) {
       //assigning value
-      temp = "can't find data";
-      humidity = "can't find data";
-      air_speed = "can't find data";
+      temp = "NA";
+      humidity = "NA";
+      air_speed = "NA";
       description = "can't find data";
-      main = "can't find data";
-      icon = "03n";
+      main = "NA";
+      icon = "09d";
     }
   }
 }

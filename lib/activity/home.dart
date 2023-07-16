@@ -16,26 +16,6 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   TextEditingController searchcontroller = new TextEditingController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print("init activity");
-  }
-
-  @override
-  void setState(fn) {
-    // TODO: implement setState
-    super.setState(fn);
-    print("setstate activity");
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    print("dispose activity");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +24,18 @@ class _homeState extends State<home> {
     var city = city_name[_random.nextInt(city_name.length)];
 
     Map info = ModalRoute.of(context)?.settings?.arguments as Map;
-    String temp = ((info['temp_value']).toString()).substring(0, 4);
+    String temp = (info['temp_value']).toString();
+    String wind = (info["air_speed_value"]).toString();
+    if (temp == "NA") {
+      print("NA");
+    } else {
+      temp = ((info['temp_value']).toString()).substring(0, 4);
+      wind = ((info["air_speed_value"]).toString()).substring(0, 4);
+    }
     String icon = info["icon_value"].toString();
     String description = info["des_value"];
     String location = (info["loc_value"]).toString();
-    String wind = ((info["air_speed_value"]).toString()).substring(0, 4);
+
     String humidity = info["hum_value"];
 
     return Scaffold(
@@ -57,10 +44,7 @@ class _homeState extends State<home> {
           //for statusbar
           child: GradientAppBar(
             gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 33, 97, 115),
-                Color.fromARGB(255, 97, 184, 246)
-              ],
+              colors: [Colors.blue.shade500, Colors.blue.shade200],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -79,8 +63,8 @@ class _homeState extends State<home> {
                   //   0.7,  //70%-100%-green
                   // ],
                   colors: [
-                Colors.blueAccent,
-                Colors.lightBlueAccent,
+                Colors.blue.shade500,
+                Colors.blue.shade200,
                 // Colors.green,
               ])),
           child: Column(
@@ -98,13 +82,18 @@ class _homeState extends State<home> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => loading(
-                                  location: searchcontroller.text,
-                                ),
-                              ));
+                          if ((searchcontroller.text).replaceAll(" ", "") ==
+                              "") {
+                            print("blank search");
+                          } else {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => loading(
+                                    location: searchcontroller.text,
+                                  ),
+                                ));
+                          }
                         },
                         child: Container(
                           child: Icon(
@@ -147,13 +136,13 @@ class _homeState extends State<home> {
                                 Text(
                                   "$description",
                                   style: TextStyle(
-                                      fontSize: 19,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   "in $location",
                                   style: TextStyle(
-                                    fontSize: 19,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
