@@ -105,6 +105,7 @@ class _homeState extends State<home> {
                       ),
                       Expanded(
                         child: TextField(
+                          textInputAction: TextInputAction.newline,
                           controller: searchcontroller,
                           decoration: InputDecoration(
                             border: InputBorder.none,

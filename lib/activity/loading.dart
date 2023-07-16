@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:waether_app/activity/location.dart';
 import 'package:waether_app/worker/worker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 
 class loading extends StatefulWidget {
   String location;
@@ -55,11 +56,15 @@ class _loadingState extends State<loading> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "images/weather.png",
-              height: 200,
-              width: 150,
-            ),
+            Lottie.network(
+                "https://lottie.host/3a01e62d-008a-44a4-8895-ca85e6de8777/r7Nh4MBwMl.json",
+                height: 300,
+                width: 300),
+            // Image.asset(
+            //   "images/weather.png",
+            //   height: 200,
+            //   width: 150,
+            // ),
             Text(
               "Mausam App",
               style: TextStyle(
