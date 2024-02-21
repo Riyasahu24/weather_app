@@ -245,7 +245,7 @@ class _homeState extends State<home> {
                               style: TextStyle(
                                   fontSize: 40, fontWeight: FontWeight.bold),
                             ),
-                            Text("km/hr"),
+                            Text("km/hr "),
                           ],
                         )),
                   ),
